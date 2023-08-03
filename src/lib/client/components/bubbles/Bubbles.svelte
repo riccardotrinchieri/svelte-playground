@@ -56,7 +56,7 @@
 	{#each bubbles as bubble (bubble.id)}
 		<div
 			in:bubbleRise={{ duration: 8000 }}
-			class="rounded-full bg-blue-900 aspect-square absolute z-0"
+			class="rounded-full bg-blue-950 aspect-square absolute z-0"
 			style="left:{bubble.offsetX}%; width:{bubble.size}px; bottom: 0; z-index:{Math.random() > 0.5
 				? 0
 				: 20}"

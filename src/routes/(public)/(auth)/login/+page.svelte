@@ -1,4 +1,9 @@
 <script lang="ts">
+	import clsx from 'clsx';
 </script>
 
-<h1 class="text-3xl font-bold">Svelte playground</h1>
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+
+<h1 class={clsx('text-3xl font-bold ')}>Svelte playground</h1>
