@@ -1,11 +1,24 @@
 <script lang="ts">
+	import HomeIcon from '$lib/client/assets/icons/HomeIcon.svelte';
 	import SvelteLogo from '$lib/client/assets/icons/SvelteLogo.svelte';
 	import Bubbles from '$lib/client/components/bubbles/Bubbles.svelte';
+	import Button from '$lib/client/components/button/Button.svelte';
+	import ThemeToggler from '$lib/client/features/theme/ThemeToggler.svelte';
 	import clsx from 'clsx';
 </script>
 
 <div class={clsx('h-full flex')}>
-	<main class={clsx('h-full w-full md:w-1/2 flex flex-col items-center justify-center p-4')}>
+	<main
+		class={clsx('h-full w-full md:w-1/2 flex flex-col items-center justify-center p-4 relative')}
+	>
+		<div class={clsx('absolute top-1 left-1')}>
+			<Button href={'/'} variant={{ mode: 'ghost' }}>
+				<HomeIcon />
+			</Button>
+		</div>
+		<div class={clsx('absolute top-1 right-1')}>
+			<ThemeToggler />
+		</div>
 		<slot />
 	</main>
 	<div

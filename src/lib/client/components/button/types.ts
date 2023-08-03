@@ -12,10 +12,10 @@ type BaseButtonProps = {
 
 type RegularButtonProps = {
 	href?: undefined;
-} & Partial<Omit<HTMLButtonAttributes, 'class'>>;
+} & Partial<HTMLButtonAttributes>;
 
 type LinkButtonProps = {
 	href?: string;
-} & Partial<Omit<HTMLAnchorElement, 'class' | 'href'>>;
+} & Partial<Omit<HTMLAnchorElement, 'href'>>;
 
 export type ButtonProps = BaseButtonProps & (RegularButtonProps | LinkButtonProps);

@@ -19,7 +19,9 @@
 		<div class={clsx('text-blue-950 relative z-10')}>
 			<SvelteLogo size={250} />
 		</div>
-		<div class={clsx('flex flex-col gap-2 text-blue-50 max-w-2xl p-4 relative z-10')}>
+		<div
+			class={clsx('flex flex-col gap-2 text-blue-50 max-w-2xl p-4 relative z-10 nightwind-prevent')}
+		>
 			<h1 class={clsx('text-2xl')}>Welcome to my Svelte playground!</h1>
 			<h2>
 				To start using the application you need to login or sign-up. <br /> Don't worry during the sign-up

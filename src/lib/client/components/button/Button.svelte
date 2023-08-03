@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import type { ButtonProps, ButtonVariant } from './types';
+	import type { ButtonProps } from './types';
 	import { buttonVariants } from './variants';
 	import clsx from 'clsx';
 
@@ -11,9 +10,9 @@
 </script>
 
 {#if href}
-	<a {href} class={clsx(buttonVariants(variant))} {...$$restProps}><slot /></a>
+	<a {href} {...$$restProps} class={clsx(buttonVariants(variant), $$restProps.class)}><slot /></a>
 {:else}
-	<button {...$$restProps} class={clsx(buttonVariants(variant))} on:click>
+	<button {...$$restProps} class={clsx(buttonVariants(variant), $$restProps.class)} on:click>
 		<slot />
 	</button>
 {/if}

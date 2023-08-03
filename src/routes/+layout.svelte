@@ -13,7 +13,7 @@
 	});
 </script>
 
-<div class={clsx('h-full w-full bg-gray-50 font-mono text-gray-900 text-center')}>
+<div class={clsx('h-full w-full bg-gray-50 font-mono text-gray-900 text-center ')}>
 	<slot />
 </div>
 
