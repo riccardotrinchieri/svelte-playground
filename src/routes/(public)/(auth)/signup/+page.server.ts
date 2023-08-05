@@ -15,7 +15,8 @@ const SignUpSchema = z.object({
 export type SignUp = z.infer<typeof SignUpSchema>;
 
 export const actions = {
-	default: async ({ request }: RequestEvent) => {
+	default: async (requestEvent: RequestEvent) => {
+		const { request } = requestEvent;
 		const data = await request.formData();
 		const json = formDataToJSON(data);
 		const [signUpData, error] = zodParse(SignUpSchema, json);
@@ -26,6 +27,15 @@ export const actions = {
 
 		if (signUpData.password !== signUpData.confirmPassword) {
 			return fail(400, { confirmPassword: 'Passwords do not match' });
+		}
+
+		try {
+			const response = requestEvent.fetch('/api/auth/signup', {
+				method: 'POST',
+				body: JSON.stringify(signUpData)
+			});
+		} catch (error) {
+			return;
 		}
 	}
 };

@@ -37,6 +37,9 @@
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.0.0",
 		"nightwind": "^1.1.13",
+		"pg": "^8.11.2",
+		"pg-hstore": "^2.3.4",
+		"sequelize": "^6.32.1",
 		"zod": "^3.21.4"
 	}
 }
