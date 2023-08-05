@@ -3,7 +3,7 @@
 	import SvelteLogo from '$lib/client/assets/icons/SvelteLogo.svelte';
 	import Bubbles from '$lib/client/components/bubbles/Bubbles.svelte';
 	import Button from '$lib/client/components/button/Button.svelte';
-	import ThemeToggler from '$lib/client/features/theme/ThemeToggler.svelte';
+	import ThemeToggler from '$lib/client/features/theme/components/ThemeToggler.svelte';
 	import clsx from 'clsx';
 </script>
 

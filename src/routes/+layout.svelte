@@ -5,7 +5,7 @@
 	import './styles.css';
 	import nightwind from 'nightwind/helper';
 	import { onMount } from 'svelte';
-	import { themeModeStore } from '$lib/client/features/theme/themeModeStore';
+	import { themeModeStore } from '$lib/client/features/theme';
 
 	onMount(() => {
 		const nightwindScript = document.createElement('script');

@@ -1,8 +1,8 @@
-import { formDataToJSON } from '$lib/server/utils/formData';
 import { fail, type RequestEvent } from '@sveltejs/kit';
 import { z } from 'zod';
 import { validationErrorMessage } from '$lib/shared/zod/errorMessages';
-import { zodErrorsToJsonErrors, zodParse } from '$lib/shared/zod/helpers';
+import { zodErrorsToJsonErrors, zodParse } from '$lib/shared/zod';
+import { formDataToJSON } from '$lib/shared/formdata';
 
 export const prerender = false;
 

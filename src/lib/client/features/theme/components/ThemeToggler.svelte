@@ -2,8 +2,8 @@
 	import MoonIcon from '$lib/client/assets/icons/MoonIcon.svelte';
 	import SunIcon from '$lib/client/assets/icons/SunIcon.svelte';
 	import Button from '$lib/client/components/button/Button.svelte';
-	import { toggleTheme } from './theme-toggler';
-	import { themeModeStore } from './themeModeStore';
+	import { toggleTheme } from '../theme-toggler';
+	import { themeModeStore } from '../themeModeStore';
 
 	const toggle = (mode: 'dark' | 'light') => {
 		themeModeStore.update(() => mode);
