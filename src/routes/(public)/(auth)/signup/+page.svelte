@@ -1,12 +1,27 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
 	import KeyIcon from '$lib/client/assets/icons/KeyIcon.svelte';
 	import UserIcon from '$lib/client/assets/icons/UserIcon.svelte';
 	import Button from '$lib/client/components/button/Button.svelte';
 	import Input from '$lib/client/components/input/Input.svelte';
+	import { toast } from '$lib/client/features/toaster/toast.svelte';
 	import clsx from 'clsx';
-	import { onMount } from 'svelte';
 
 	export let form;
+
+	$: {
+		if (browser && form?.status === 'success') {
+			goto('/login');
+			toast.success('User created successfully try to login!');
+		}
+	}
+
+	$: {
+		if (browser && form?.status === 'failed' && form.apiError) {
+			toast.error('Something went wrong! Try again later');
+		}
+	}
 </script>
 
 <svelte:head>
@@ -19,7 +34,7 @@
 			name={'username'}
 			label={'Username'}
 			placeholder={'Enter a username'}
-			error={form?.username}
+			error={form?.errors?.username}
 		>
 			<UserIcon slot="startAddon" />
 		</Input>
@@ -29,7 +44,7 @@
 			type={'password'}
 			label={'Password'}
 			placeholder={'Enter a password'}
-			error={form?.password}
+			error={form?.errors?.password}
 		>
 			<KeyIcon slot="startAddon" />
 		</Input>
@@ -37,7 +52,7 @@
 			name={'confirmPassword'}
 			type={'password'}
 			placeholder={'Confirm the password'}
-			error={form?.confirmPassword}
+			error={form?.errors?.confirmPassword}
 		>
 			<KeyIcon slot="startAddon" />
 		</Input>

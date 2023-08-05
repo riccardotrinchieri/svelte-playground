@@ -1,8 +1,8 @@
 import { sequelize } from '$lib/server/sequelize';
-import { DataTypes, Model, type InferAttributes, type InferCreationAttributes } from 'sequelize';
-import type { UserType } from './type';
+import { DataTypes, Model } from 'sequelize';
+import type { UserCreationType, UserType } from './type';
 
-export const User = sequelize.define<Model<any, any>>(
+export const User = sequelize.define<Model<UserType, UserCreationType>>(
 	'User',
 	{
 		id: {
@@ -25,3 +25,5 @@ export const User = sequelize.define<Model<any, any>>(
 		]
 	}
 );
+
+User.sync();

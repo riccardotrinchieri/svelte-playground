@@ -22,20 +22,21 @@ export const actions = {
 		const [signUpData, error] = zodParse(SignUpSchema, json);
 		if (error) {
 			const formErrors = zodErrorsToJsonErrors(error);
-			return fail(400, formErrors);
+			return fail(400, { status: 'failed', errors: formErrors });
 		}
 
 		if (signUpData.password !== signUpData.confirmPassword) {
-			return fail(400, { confirmPassword: 'Passwords do not match' });
+			return fail(400, { status: 'failed', errors: { confirmPassword: 'Passwords do not match' } });
 		}
 
-		try {
-			const response = requestEvent.fetch('/api/auth/signup', {
-				method: 'POST',
-				body: JSON.stringify(signUpData)
-			});
-		} catch (error) {
-			return;
+		const response = await requestEvent.fetch('/api/auth/signup', {
+			method: 'POST',
+			body: JSON.stringify(signUpData)
+		});
+		const responseData = await response.json();
+		if (!response.ok) {
+			return fail(500, { status: 'failed', apiError: true, message: responseData });
 		}
+		return { status: 'success', data: responseData };
 	}
 };
