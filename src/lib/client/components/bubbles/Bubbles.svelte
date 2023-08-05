@@ -16,7 +16,7 @@
 	let interval: number;
 
 	onMount(() => {
-		interval = setInterval(() => {
+		interval = window.setInterval(() => {
 			const id = crypto.randomUUID();
 			bubbles = [
 				...bubbles,

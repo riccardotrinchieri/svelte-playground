@@ -29,8 +29,8 @@
 				is required.
 			</h2>
 			<div class={clsx('flex items-center justify-center gap-2')}>
-				<Button href={'/login'} variant={{ mode: 'outlined' }}>Login</Button>
-				<Button href={'/signup'} variant={{ mode: 'outlined' }}>Sign-up</Button>
+				<Button href={'/auth/login'} variant={{ mode: 'outlined' }}>Login</Button>
+				<Button href={'/auth/signup'} variant={{ mode: 'outlined' }}>Sign-up</Button>
 				<ThemeToggler />
 			</div>
 		</div>

@@ -9,60 +9,52 @@
 	import clsx from 'clsx';
 
 	export let form;
-
 	$: {
-		if (browser && form?.status === 'success') {
-			goto('/login');
-			toast.success('User created successfully try to login!');
+		if (browser && form?.status == 'success') {
+			goto('/private');
 		}
 	}
 
 	$: {
 		if (browser && form?.status === 'failed' && form.apiError) {
-			toast.error('Something went wrong! Try again later');
+			toast.error('Something went wrong! Try again');
 		}
 	}
 </script>
 
 <svelte:head>
-	<title>Sign-up</title>
+	<title>Login</title>
 </svelte:head>
 
-<form method="POST" class="flex flex-col items-center">
-	<div class="w-full max-w-sm mb-8">
+<form method="POST" class="flex flex-col items-center w-full max-w-sm">
+	<div class="w-full mb-8">
 		<Input
-			name={'username'}
+			name="username"
 			label={'Username'}
-			placeholder={'Enter a username'}
+			placeholder={'Enter your username'}
 			error={form?.errors?.username}
+			value={form?.values?.username}
 		>
 			<UserIcon slot="startAddon" />
 		</Input>
 
 		<Input
-			name={'password'}
+			name="password"
 			type={'password'}
 			label={'Password'}
-			placeholder={'Enter a password'}
+			placeholder={'Enter your password'}
 			error={form?.errors?.password}
-		>
-			<KeyIcon slot="startAddon" />
-		</Input>
-		<Input
-			name={'confirmPassword'}
-			type={'password'}
-			placeholder={'Confirm the password'}
-			error={form?.errors?.confirmPassword}
+			value={form?.values?.password}
 		>
 			<KeyIcon slot="startAddon" />
 		</Input>
 	</div>
 
-	<Button class={clsx('mb-4')}>Sign-up</Button>
+	<Button class="mb-2">Login</Button>
 	<span>
-		Do you have an account? <a
-			href="/login"
-			class={clsx('cursor-pointer', 'text-blue-500 hover:text-blue-700')}>Login.</a
+		You don't have an account yet? <a
+			href="/auth/signup"
+			class={clsx('cursor-pointer', 'text-blue-500 hover:text-blue-700')}>Sign-up.</a
 		>
 	</span>
 </form>
