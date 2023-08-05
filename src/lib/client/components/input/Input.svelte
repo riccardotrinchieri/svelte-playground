@@ -24,12 +24,12 @@
 	{/if}
 	<div class={clsx('w-full relative flex items-center group')}>
 		{#if $$slots.startAddon}
-			<div class={clsx('absolute left-2', addonClasses)}>
+			<div class={clsx('absolute left-2 pointer-events-none', addonClasses)}>
 				<slot name="startAddon" />
 			</div>
 		{/if}
 		{#if $$slots.endAddon}
-			<div class={clsx('absolute right-2', addonClasses)}>
+			<div class={clsx('absolute right-2 pointer-events-none', addonClasses)}>
 				<slot name="endAddon" />
 			</div>
 		{/if}

@@ -1,8 +1,14 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-export const themeModeStore = writable(
-	((browser && localStorage.getItem('nightwind-mode')) ?? 'light') as 'light' | 'dark'
-);
+let initialValue;
+if (!browser) {
+	initialValue = null;
+} else {
+	const themeMode = localStorage.getItem('nightwind-mode') as 'light' | 'dark' | null;
+	initialValue = themeMode || 'light';
+}
 
-themeModeStore.subscribe((mode) => browser && localStorage.setItem('nightwind-mode', mode));
+export const themeModeStore = writable(initialValue);
+
+themeModeStore.subscribe((mode) => browser && mode && localStorage.setItem('nightwind-mode', mode));
