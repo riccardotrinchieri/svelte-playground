@@ -4,6 +4,7 @@ import { getUserByUsername } from '../user/services';
 import { SALT, SESSION_DURATION } from './constants';
 import { Session } from '../session/model';
 import type { Cookies } from '@sveltejs/kit';
+import { isSessionValid } from '../session/services';
 
 type LoginPayload = { username: string; password: string };
 
@@ -65,7 +66,7 @@ export const verifyTokens = async (
 		throw new Error('Unauthorized');
 	}
 
-	if (access_token) {
+	if (access_token && isSessionValid(session)) {
 		try {
 			await bcrypt.compare(access_token, session.access_token);
 			return { type: 'access' };

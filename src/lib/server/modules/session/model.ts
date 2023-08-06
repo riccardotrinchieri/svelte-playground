@@ -1,7 +1,15 @@
 import { sequelize } from '$lib/server/sequelize';
 import { DataTypes, Model } from 'sequelize';
-import type { SessionCreationType, SessionType } from './type';
 import { User } from '../user/model';
+import type { OmitForCreationType, SequelizeDefaultAttributes } from '$lib/server/sequelize/types';
+
+export type SessionType = {
+	user_id: number;
+	access_token: string;
+	refresh_token: string;
+} & SequelizeDefaultAttributes;
+
+export type SessionCreationType = OmitForCreationType<SessionType, ''>;
 
 export const Session = sequelize.define<Model<SessionType, SessionCreationType>>(
 	'Session',
@@ -21,7 +29,9 @@ export const Session = sequelize.define<Model<SessionType, SessionCreationType>>
 		refresh_token: {
 			type: DataTypes.STRING,
 			unique: true
-		}
+		},
+		createdAt: DataTypes.DATE,
+		updatedAt: DataTypes.DATE
 	},
 	{
 		indexes: [

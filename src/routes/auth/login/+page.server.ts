@@ -1,11 +1,10 @@
 import { generateNewTokens, login, setTokenCookies } from '$lib/server/modules/auth/services';
-import type { SessionCreationType } from '$lib/server/modules/session/type';
 import { formDataToJSON } from '$lib/shared/formdata';
 import { validationErrorMessage, zodErrorsToJsonErrors, zodParse } from '$lib/shared/zod';
 import { fail, type RequestEvent } from '@sveltejs/kit';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
-import { Session } from '$lib/server/modules/session/model';
+import { Session, type SessionCreationType } from '$lib/server/modules/session/model';
 import { SALT } from '$lib/server/modules/auth/constants';
 
 export const prerender = false;
@@ -46,7 +45,7 @@ export const actions = {
 
 			return { status: 'success', data: result };
 		} catch (error) {
-			//console.error(error);
+			console.error(error);
 			return fail(500, {
 				status: 'failed',
 				apiError: true,
