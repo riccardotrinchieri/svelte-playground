@@ -11,7 +11,7 @@
 	export let form;
 	$: {
 		if (browser && form?.status == 'success') {
-			goto('/private');
+			goto('/private/home');
 		}
 	}
 

@@ -9,7 +9,9 @@
 
 <div class={clsx('h-full flex')}>
 	<main
-		class={clsx('h-full w-full md:w-1/2 flex flex-col items-center justify-center p-4 relative')}
+		class={clsx(
+			'h-full w-full md:w-1/2 flex flex-col items-center justify-center px-4 relative py-10'
+		)}
 	>
 		<div class={clsx('absolute top-1 left-1')}>
 			<Button href={'/'} variant={{ mode: 'ghost' }}>
@@ -19,7 +21,9 @@
 		<div class={clsx('absolute top-1 right-1')}>
 			<ThemeToggler />
 		</div>
-		<slot />
+		<div class={clsx('grid place-items-center w-full grow overflow-auto')}>
+			<slot />
+		</div>
 	</main>
 	<div
 		class={clsx(

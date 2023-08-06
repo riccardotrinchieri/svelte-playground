@@ -121,9 +121,7 @@ export const buttonVariants = cva(
 					'bg-transparent',
 					'disabled:text-blue-500',
 					'hover:bg-blue-100',
-					'active:text-blue-950',
-					'focus:underline',
-					'focus-visible:underline'
+					'active:text-blue-950'
 				)
 			},
 			{
@@ -134,9 +132,7 @@ export const buttonVariants = cva(
 					'bg-transparent',
 					'disabled:text-gray-500',
 					'hover:bg-gray-100',
-					'active:text-gray-950',
-					'focus:underline',
-					'focus-visible:underline'
+					'active:text-gray-950'
 				)
 			},
 			{
@@ -147,9 +143,7 @@ export const buttonVariants = cva(
 					'bg-transparent',
 					'disabled:text-red-500',
 					'hover:bg-red-100',
-					'active:text-red-950',
-					'focus:underline',
-					'focus-visible:underline'
+					'active:text-red-950'
 				)
 			}
 		],

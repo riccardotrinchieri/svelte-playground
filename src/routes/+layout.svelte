@@ -23,7 +23,7 @@
 
 <div
 	class={clsx(
-		'h-full w-full bg-gray-50 font-mono text-gray-900 text-center',
+		'fixed top-0 h-full w-full bg-gray-50 font-mono text-gray-900 text-center overflow-hidden',
 		!$themeModeStore && 'hidden'
 	)}
 >
