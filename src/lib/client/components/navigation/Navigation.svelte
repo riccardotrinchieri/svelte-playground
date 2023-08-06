@@ -15,11 +15,13 @@
 	import CloseIcon from '$lib/client/assets/icons/CloseIcon.svelte';
 	import MenuIcon from '$lib/client/assets/icons/MenuIcon.svelte';
 	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
+	import { windowSizeStore } from '$lib/client/features/window-size/windowSizeStore';
 
 	let expanded = false;
 
 	onMount(() => {
-		expanded = window.innerWidth > 1024;
+		expanded = !!$windowSizeStore && $windowSizeStore.width > 1024;
 	});
 
 	const logout = () => {
@@ -43,7 +45,10 @@
 >
 	<Button
 		on:click={() => (expanded = !expanded)}
-		class={clsx(' shrink-0 absolute right-1 top-1')}
+		class={clsx(' shrink-0 absolute right-1 top-1', {
+			'!text-blue-50 nightwind-prevent hover:!bg-blue-900':
+				!expanded && browser && $windowSizeStore && $windowSizeStore.width < 640
+		})}
 		variant={{ size: 'sm', mode: 'ghost' }}
 	>
 		{#if expanded}
