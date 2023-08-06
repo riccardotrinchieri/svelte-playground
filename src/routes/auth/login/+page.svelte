@@ -26,7 +26,7 @@
 	<title>Login</title>
 </svelte:head>
 
-<form method="POST" class="flex flex-col items-center w-full max-w-sm">
+<form autocomplete="off" method="POST" class="flex flex-col items-center w-full max-w-sm">
 	<div class="w-full mb-8">
 		<Input
 			name="username"

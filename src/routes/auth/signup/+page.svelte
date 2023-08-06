@@ -28,7 +28,7 @@
 	<title>Sign-up</title>
 </svelte:head>
 
-<form method="POST" class="flex flex-col items-center w-full max-w-sm">
+<form autocomplete="off" method="POST" class="flex flex-col items-center w-full max-w-sm">
 	<div class="mb-8 w-full">
 		<Input
 			name={'username'}
