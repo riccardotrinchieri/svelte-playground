@@ -32,7 +32,7 @@
 </script>
 
 <div
-	style={`width:${expanded ? '300px' : '60px'}; min-width:${expanded ? '300px' : '60px'}`}
+	style={`width:${expanded ? '300px' : '58px'}; min-width:${expanded ? '300px' : '58px'}`}
 	class={clsx(
 		'absolute z-50 top-0 lg:relative',
 		'h-full max-w-full flex flex-col  p-6  sm:bg-gray-100 sm:shadow-2xl',
@@ -61,7 +61,7 @@
 	<div
 		class={clsx('grow max-w-full flex flex-col relative gap-4', 'transition-all ease-in-out', {
 			'duration-300 opacity-0 pointer-events-none -z-50': !expanded,
-			'duration-1000 opacity-1 z-50': expanded
+			'duration-700 opacity-1 z-50': expanded
 		})}
 	>
 		<div
