@@ -23,6 +23,8 @@
 	let exapanding = false;
 	let expandedFixed = true;
 
+	$: mouseMoveActionsEnabled = $windowSizeStore && $windowSizeStore.width > 1280;
+
 	const logout = () => {
 		fetch('/api/auth/logout', { method: 'POST', body: '' }).then(() => {
 			goto('/auth/login');
@@ -35,17 +37,16 @@
 		expandedFixed = deafultExpanded;
 	});
 
-	const openNav = ({ onClick }: { onClick: boolean }) => {
+	const openNav = () => {
 		if (expanded || exapanding) {
 			return;
 		}
 		exapanding = true;
 		expanded = true;
-		expandedFixed = onClick;
 		onAnimationEnd();
 	};
 
-	const closeNave = ({ onClick }: { onClick: boolean }) => {
+	const closeNav = ({ onClick }: { onClick: boolean }) => {
 		if (!onClick && expandedFixed) {
 			return;
 		}
@@ -62,8 +63,7 @@
 </script>
 
 <nav
-	on:mouseenter={() => openNav({ onClick: false })}
-	on:mouseleave={() => closeNave({ onClick: false })}
+	on:mouseleave={() => closeNav({ onClick: false })}
 	style={`width:${expanded ? '300px' : '58px'}; min-width:${expanded ? '300px' : '58px'}`}
 	class={clsx(
 		'absolute z-50 top-0 left-0',
@@ -75,7 +75,7 @@
 		}
 	)}
 >
-	{#if expanded && $windowSizeStore && $windowSizeStore.width > 1024}
+	{#if expanded && mouseMoveActionsEnabled}
 		<Button
 			on:click={() => (expandedFixed = !expandedFixed)}
 			class={clsx(' shrink-0 absolute left-1 top-1')}
@@ -90,7 +90,9 @@
 	{/if}
 
 	<Button
-		on:click={() => (expanded ? closeNave({ onClick: true }) : openNav({ onClick: true }))}
+		on:click={() => {
+			expanded ? closeNav({ onClick: true }) : openNav();
+		}}
 		class={clsx(' shrink-0 absolute right-1 top-1', {
 			'!text-blue-50 nightwind-prevent hover:!bg-blue-900': !expanded
 		})}
