@@ -108,7 +108,7 @@
 	<div
 		class={clsx('grow max-w-full flex flex-col relative gap-4', 'transition-all ease-in-out', {
 			'duration-300 opacity-0 pointer-events-none -z-50': !expanded,
-			'duration-700 opacity-1 z-50': expanded
+			'duration-300 opacity-1 z-50': expanded
 		})}
 	>
 		<div

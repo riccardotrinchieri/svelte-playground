@@ -14,7 +14,7 @@
 		<div class={clsx('h-full pt-12 grid place-items-center')}>
 			<div
 				class={clsx(
-					'bg-gray-50 rounded-lg shadow-xl p-8 w-[90%] max-w-7xl max-h-[90%] overflow-auto relative z-10'
+					'bg-gray-50 rounded-lg shadow-xl p-8 w-[90%] max-w-7xl max-h-[90%] overflow-auto relative z-40'
 				)}
 			>
 				<slot />

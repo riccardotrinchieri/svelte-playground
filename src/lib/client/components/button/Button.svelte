@@ -12,7 +12,17 @@
 {#if href}
 	<a {href} {...$$restProps} class={clsx(buttonVariants(variant), $$restProps.class)}><slot /></a>
 {:else}
-	<button {...$$restProps} class={clsx(buttonVariants(variant), $$restProps.class)} on:click>
+	<button
+		{...$$restProps}
+		disabled={false}
+		aria-disabled={$$restProps.disabled ? 'true' : 'false'}
+		class={clsx(
+			buttonVariants(variant),
+			$$restProps.disabled && 'pointer-events-none',
+			$$restProps.class
+		)}
+		on:click
+	>
 		<slot />
 	</button>
 {/if}
