@@ -6,7 +6,6 @@
 	import SettingsIcon from '$lib/client/assets/icons/SettingsIcon.svelte';
 	import LogoutIcon from '$lib/client/assets/icons/LogoutIcon.svelte';
 	import { goto } from '$app/navigation';
-	import Divider from '../divider/Divider.svelte';
 	import NavItem from './NavItem.svelte';
 	import HomeIcon from '$lib/client/assets/icons/HomeIcon.svelte';
 	import Bubbles from '../bubbles/Bubbles.svelte';
@@ -14,40 +13,86 @@
 	import TableIcon from '$lib/client/assets/icons/TableIcon.svelte';
 	import CloseIcon from '$lib/client/assets/icons/CloseIcon.svelte';
 	import MenuIcon from '$lib/client/assets/icons/MenuIcon.svelte';
-	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
 	import { windowSizeStore } from '$lib/client/features/window-size/windowSizeStore';
+	import MagicIcon from '$lib/client/assets/icons/MagicIcon.svelte';
+	import { onMount } from 'svelte';
+	import UnPinIcon from '$lib/client/assets/icons/UnPinIcon.svelte';
+	import PinIcon from '$lib/client/assets/icons/PinIcon.svelte';
 
 	let expanded = false;
-
-	onMount(() => {
-		expanded = !!$windowSizeStore && $windowSizeStore.width > 1024;
-	});
+	let exapanding = false;
+	let expandedFixed = true;
 
 	const logout = () => {
 		fetch('/api/auth/logout', { method: 'POST', body: '' }).then(() => {
 			goto('/auth/login');
 		});
 	};
+
+	onMount(() => {
+		const deafultExpanded = !!$windowSizeStore && $windowSizeStore.width > 1536;
+		expanded = deafultExpanded;
+		expandedFixed = deafultExpanded;
+	});
+
+	const openNav = ({ onClick }: { onClick: boolean }) => {
+		if (expanded || exapanding) {
+			return;
+		}
+		exapanding = true;
+		expanded = true;
+		expandedFixed = onClick;
+		onAnimationEnd();
+	};
+
+	const closeNave = ({ onClick }: { onClick: boolean }) => {
+		if (!onClick && expandedFixed) {
+			return;
+		}
+		exapanding = true;
+		expanded = false;
+		onAnimationEnd();
+	};
+
+	const onAnimationEnd = () => {
+		setTimeout(() => {
+			exapanding = false;
+		}, 700);
+	};
 </script>
 
-<div
+<nav
+	on:mouseenter={() => openNav({ onClick: false })}
+	on:mouseleave={() => closeNave({ onClick: false })}
 	style={`width:${expanded ? '300px' : '58px'}; min-width:${expanded ? '300px' : '58px'}`}
 	class={clsx(
-		'absolute z-50 top-0 lg:relative',
-		'h-full max-w-full flex flex-col  p-6  sm:bg-gray-100 sm:shadow-2xl',
+		'absolute z-50 top-0 left-0',
+		'h-full max-w-full flex flex-col p-6',
+		'transition-all ease-in-out duration-700',
 		{
 			'bg-transparent shadow-none': !expanded,
-			'bg-gray-100 shadow-2xl': expanded
-		},
-		'transition-all ease-in-out duration-700'
+			'bg-gray-50 shadow-2xl': expanded
+		}
 	)}
 >
+	{#if expanded && $windowSizeStore && $windowSizeStore.width > 1024}
+		<Button
+			on:click={() => (expandedFixed = !expandedFixed)}
+			class={clsx(' shrink-0 absolute left-1 top-1')}
+			variant={{ size: 'sm', mode: 'ghost' }}
+		>
+			{#if expandedFixed}
+				<UnPinIcon size={18} />
+			{:else}
+				<PinIcon size={18} />
+			{/if}
+		</Button>
+	{/if}
+
 	<Button
-		on:click={() => (expanded = !expanded)}
+		on:click={() => (expanded ? closeNave({ onClick: true }) : openNav({ onClick: true }))}
 		class={clsx(' shrink-0 absolute right-1 top-1', {
-			'!text-blue-50 nightwind-prevent hover:!bg-blue-900':
-				!expanded && browser && $windowSizeStore && $windowSizeStore.width < 640
+			'!text-blue-50 nightwind-prevent hover:!bg-blue-900': !expanded
 		})}
 		variant={{ size: 'sm', mode: 'ghost' }}
 	>
@@ -66,7 +111,7 @@
 	>
 		<div
 			class={clsx(
-				'shrink-0 self-center grid place-items-center p-6 rounded-full bg-blue-900 text-gray-100 shadow-md relative overflow-hidden bg-gradient-to-b from-blue-900 to-blue-500'
+				'shrink-0 self-center grid place-items-center p-6 rounded-full text-gray-50 shadow-md relative overflow-hidden bg-gradient-to-b from-blue-900 to-blue-500'
 			)}
 		>
 			<Bubbles animationDuration={5000} />
@@ -97,6 +142,9 @@
 			>
 				<TableIcon slot="icon" size={18} />
 			</NavItemGroup>
+			<NavItem href={'/private/motion'} label={'Motion'}>
+				<MagicIcon slot="icon" size={18} />
+			</NavItem>
 		</div>
 	</div>
-</div>
+</nav>
