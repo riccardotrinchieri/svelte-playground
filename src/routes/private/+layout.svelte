@@ -14,10 +14,16 @@
 		<div class={clsx('h-full pt-12 grid place-items-center')}>
 			<div
 				class={clsx(
-					'bg-gray-50 rounded-lg shadow-xl p-8 w-[90%] max-w-7xl max-h-[90%] overflow-auto relative z-40'
+					'bg-gray-50 rounded-lg shadow-xl  w-[90%] max-w-7xl max-h-[90%] h-full overflow-hidden relative z-40 p-2'
 				)}
 			>
-				<slot />
+				<div
+					class={clsx(
+						'bg-gray-50 rounded-lg shadow-xl p-6 w-full h-full overflow-auto relative z-40'
+					)}
+				>
+					<slot />
+				</div>
 			</div>
 		</div>
 	</div>
