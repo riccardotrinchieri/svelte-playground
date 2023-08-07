@@ -83,13 +83,12 @@
 
 <svelte:head><title>Motion</title></svelte:head>
 
-<h1 class={clsx('text-center text-3xl font-semibold mb-4')}>Svelte Motion is just magic!</h1>
+<h1 class={clsx('text-center text-3xl font-semibold mb-4')}>Svelte Motion is just awsome!</h1>
 <h2 class={clsx('text-center text-lg mb-16')}>
 	Improve the user experience and interactivity of you application with little to none development
 	effort. (I apologize if you are on mobile, try this on desktop)
 </h2>
 
-<p class={clsx('text-center text-lg mb-8 font-semibold')}>How much do you like this?</p>
 <Progressbar
 	on:mousemove={onMouseMoveProgressbar}
 	progress={$progress}

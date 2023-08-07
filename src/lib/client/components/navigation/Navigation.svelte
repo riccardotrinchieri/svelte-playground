@@ -68,9 +68,9 @@
 	class={clsx(
 		'absolute z-50 top-0 left-0',
 		'h-full max-w-full flex flex-col p-6',
-		'transition-all ease-in-out duration-700',
+		'transition-all ease-in-out duration-300',
 		{
-			'bg-transparent shadow-none': !expanded,
+			'bg-transparent shadow-none delay-150': !expanded,
 			'bg-gray-50 shadow-2xl': expanded
 		}
 	)}
@@ -107,8 +107,8 @@
 
 	<div
 		class={clsx('grow max-w-full flex flex-col relative gap-4', 'transition-all ease-in-out', {
-			'duration-300 opacity-0 pointer-events-none -z-50': !expanded,
-			'duration-300 opacity-1 z-50': expanded
+			'duration-150 opacity-0 pointer-events-none -z-50': !expanded,
+			'duration-150 opacity-1 z-50 delay-150': expanded
 		})}
 	>
 		<div
