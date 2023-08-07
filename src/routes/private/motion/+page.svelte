@@ -26,7 +26,7 @@
 	};
 
 	const counter = tweened(0, {
-		duration: 400,
+		duration: 200,
 		easing: cubicOut
 	});
 
@@ -37,19 +37,44 @@
 
 	let range = extractRangeFromCounter();
 
+	let queuedUpdates = {
+		increments: 0,
+		decrements: 0
+	};
+
+	$: serveQueue = (action: keyof typeof queuedUpdates) => {
+		const add = action === 'increments' ? 1 : -1;
+		if (action === 'decrements' && $counter === 0) {
+			queuedUpdates.decrements = 0;
+			return;
+		}
+
+		if (queuedUpdates[action]) {
+			$counter += add;
+			queuedUpdates[action] -= 1;
+		}
+	};
+
+	$: addToQueue = (action: keyof typeof queuedUpdates) => {
+		const otherAction = action === 'increments' ? 'decrements' : 'increments';
+
+		if (queuedUpdates[otherAction]) {
+			queuedUpdates[otherAction] -= 1;
+			return;
+		}
+
+		queuedUpdates[action] += 1;
+	};
+
 	$: {
-		if ($counter === range[0] || $counter === range[range.length - 1]) {
+		if ($counter % 1 === 0) {
 			range = extractRangeFromCounter();
+			serveQueue('increments');
+			serveQueue('decrements');
 		}
 	}
 
 	$: delta = -1 * (range[1] - $counter) * 60; //Counter height;
-
-	const safeUpdateCounter = (newVal: number) => {
-		const notSmalletThanRange = Math.max(newVal, Math.min(...range));
-		const notBiggerThanRange = Math.min(notSmalletThanRange, Math.max(...range));
-		return notBiggerThanRange;
-	};
 
 	let throttler: Throttler;
 	onMount(() => {
@@ -96,13 +121,10 @@
 	progressClass={clsx('bg-gradient-to-r from-red-500  via-yellow-300 to-green-500')}
 />
 
-<p class={clsx('text-center text-lg mt-16 font-semibold')}>Boring counters? NO MORE!</p>
-<p class={clsx('text-center text-lg mb-4')}>(Please don't spam! I was lazy...)</p>
+<p class={clsx('text-center text-lg mt-16 mb-4 font-semibold')}>No more boring counters!</p>
 
 <div class={clsx('flex items-center gap-8 justify-center mb-16')}>
-	<Button on:click={() => counter.update((prev) => safeUpdateCounter(Math.max(prev - 1, 0)))}
-		>-</Button
-	>
+	<Button on:click={() => addToQueue('decrements')}>-</Button>
 	<div
 		class={clsx(
 			'text-6xl font-semibold h-[60px] w-[120px] overflow-hidden transition-all ease-in-out'
@@ -114,7 +136,7 @@
 			<span>{range[0]}</span>
 		</div>
 	</div>
-	<Button on:click={() => counter.update((prev) => safeUpdateCounter(prev + 1))}>+</Button>
+	<Button on:click={() => addToQueue('increments')}>+</Button>
 </div>
 
 <p class={clsx('text-center text-lg mb-4 font-semibold')}>Do you want a custom cursor?</p>
