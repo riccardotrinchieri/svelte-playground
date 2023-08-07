@@ -1,11 +1,16 @@
-/* eslint-disable no-var */
-var timeoutId: number | null = null;
+export class Throttler {
+	timeoutId: number | null;
 
-export const throttle = <T extends () => ReturnType<T>>(fn: T, interval: number) => {
-	if (!timeoutId) {
-		timeoutId = window.setTimeout(() => {
-			timeoutId = null;
-			return fn();
-		}, interval);
+	constructor() {
+		this.timeoutId = null;
 	}
-};
+
+	throttle<T extends () => ReturnType<T>>(fn: T, interval: number) {
+		if (!this.timeoutId) {
+			this.timeoutId = window.setTimeout(() => {
+				this.timeoutId = null;
+				return fn();
+			}, interval);
+		}
+	}
+}

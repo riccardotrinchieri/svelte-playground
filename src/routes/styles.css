@@ -21,4 +21,13 @@
 	::-webkit-scrollbar-thumb:hover {
 		background: rgba(255, 255, 255, 0.3);
 	}
+
+	.triangle {
+		width: 0;
+		height: 0;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+
+		border-bottom: 5px solid black;
+	}
 }

@@ -1,11 +1,13 @@
 <script lang="ts">
 	import Button from '$lib/client/components/button/Button.svelte';
 	import Progressbar from '$lib/client/components/progressbar/Progressbar.svelte';
-	import { throttle } from '$lib/client/features/throttling';
+	import { Throttler } from '$lib/client/features/throttling';
 	import clsx from 'clsx';
 	import { cubicOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
 	import { spring } from 'svelte/motion';
+	import CustomPointer from './CustomPointer.svelte';
+	import { onMount } from 'svelte';
 
 	const progress = tweened(0, {
 		duration: 400,
@@ -48,6 +50,11 @@
 		const notBiggerThanRange = Math.min(notSmalletThanRange, Math.max(...range));
 		return notBiggerThanRange;
 	};
+
+	let throttler: Throttler;
+	onMount(() => {
+		throttler = new Throttler();
+	});
 
 	let coords = spring(
 		{ x: 50, y: 50 },
@@ -120,17 +127,14 @@
 	)}
 	on:mousemove={(e) => {
 		const currentTarget = e.currentTarget;
-		throttle(() => {
+		throttler.throttle(() => {
 			onMouseMoveCustomPointerContainer(currentTarget, e.clientX, e.clientY);
 		}, 16);
 	}}
 	on:mousedown={() => size.set(3)}
 	on:mouseup={() => size.set(1)}
 >
-	<div
-		style={`top:${$coords.y}px; left:${$coords.x}px; transform: scale(${$size})`}
-		class={clsx('rounded-full bg-blue-900 h-[10px] w-[10px] absolute z-[999]')}
-	/>
+	<CustomPointer x={$coords.x} y={$coords.y} size={$size} />
 	<div class={clsx('flex items-center gap-2')}>
 		<Button class={'!cursor-none'}>Enabled</Button>
 		<Button class={'!cursor-none'} disabled>Disabled</Button>
